@@ -18,7 +18,7 @@ declare module "@react-three/fiber" {
 function App() {
   return (
     <>
-      <View className="w-100 h-100">
+      <View className="w-100 h-100 border-2 border-red-500">
         <pointLight intensity={2} position={[0, 0, 4]} />
         <mesh rotation={[Math.PI / 4, Math.PI / 3, 0]} scale={2}>
           <boxGeometry />
