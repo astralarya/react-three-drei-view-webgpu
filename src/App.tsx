@@ -18,21 +18,23 @@ declare module "@react-three/fiber" {
 function App() {
   return (
     <>
-      <Canvas
-        gl={async (props) => {
-          const renderer = new THREE.WebGPURenderer(
-            props as WebGPURendererParameters
-          );
-          await renderer.init();
-          return renderer;
-        }}
-      >
-        <pointLight intensity={2} position={[0, 0, 4]} />
-        <mesh rotation={[Math.PI / 4, Math.PI / 3, 0]} scale={2}>
-          <boxGeometry />
-          <meshStandardMaterial />
-        </mesh>
-      </Canvas>
+      <div className="w-lvw h-lvh">
+        <Canvas
+          gl={async (props) => {
+            const renderer = new THREE.WebGPURenderer(
+              props as WebGPURendererParameters
+            );
+            await renderer.init();
+            return renderer;
+          }}
+        >
+          <pointLight intensity={2} position={[0, 0, 4]} />
+          <mesh rotation={[Math.PI / 4, Math.PI / 3, 0]} scale={2}>
+            <boxGeometry />
+            <meshStandardMaterial />
+          </mesh>
+        </Canvas>
+      </div>
     </>
   );
 }
