@@ -4,9 +4,9 @@ import {
   type ConstructorRepresentation,
   type ThreeToJSXElements,
 } from "@react-three/fiber";
-import type { WebGPURendererParameters } from "three/src/renderers/webgpu/WebGPURenderer.Nodes.js";
-
+import { View } from "@react-three/drei";
 import * as THREE from "three/webgpu";
+import type { WebGPURendererParameters } from "three/src/renderers/webgpu/WebGPURenderer.Nodes.js";
 
 extend(THREE as unknown as ConstructorRepresentation);
 
@@ -18,7 +18,14 @@ declare module "@react-three/fiber" {
 function App() {
   return (
     <>
-      <div className="w-lvw h-lvh">
+      <View className="w-100 h-100">
+        <pointLight intensity={2} position={[0, 0, 4]} />
+        <mesh rotation={[Math.PI / 4, Math.PI / 3, 0]} scale={2}>
+          <boxGeometry />
+          <meshStandardMaterial />
+        </mesh>
+      </View>
+      <div className="top-0 left-0 right-0 bottom-0 fixed">
         <Canvas
           gl={async (props) => {
             const renderer = new THREE.WebGPURenderer(
@@ -28,11 +35,7 @@ function App() {
             return renderer;
           }}
         >
-          <pointLight intensity={2} position={[0, 0, 4]} />
-          <mesh rotation={[Math.PI / 4, Math.PI / 3, 0]} scale={2}>
-            <boxGeometry />
-            <meshStandardMaterial />
-          </mesh>
+          <View.Port />
         </Canvas>
       </div>
     </>
