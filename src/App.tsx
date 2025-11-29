@@ -1,19 +1,28 @@
-import { Canvas, extend, type ThreeToJSXElements } from "@react-three/fiber";
+import {
+  Canvas,
+  extend,
+  type ConstructorRepresentation,
+  type ThreeToJSXElements,
+} from "@react-three/fiber";
+import type { WebGPURendererParameters } from "three/src/renderers/webgpu/WebGPURenderer.Nodes.js";
 
 import * as THREE from "three/webgpu";
 
+extend(THREE as unknown as ConstructorRepresentation);
+
 declare module "@react-three/fiber" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface ThreeElements extends ThreeToJSXElements<typeof THREE> {}
 }
-
-extend(THREE as any);
 
 function App() {
   return (
     <>
       <Canvas
         gl={async (props) => {
-          const renderer = new THREE.WebGPURenderer(props as any);
+          const renderer = new THREE.WebGPURenderer(
+            props as WebGPURendererParameters
+          );
           await renderer.init();
           return renderer;
         }}
