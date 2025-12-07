@@ -4,7 +4,7 @@ import {
   type ConstructorRepresentation,
   type ThreeToJSXElements,
 } from "@react-three/fiber";
-import { View } from "@react-three/drei";
+import { View } from "./component/View";
 import * as THREE from "three/webgpu";
 import type { WebGPURendererParameters } from "three/src/renderers/webgpu/WebGPURenderer.Nodes.js";
 
@@ -29,7 +29,7 @@ function App() {
         <Canvas
           gl={async (props) => {
             const renderer = new THREE.WebGPURenderer(
-              props as WebGPURendererParameters
+              props as WebGPURendererParameters,
             );
             await renderer.init();
             return renderer;
