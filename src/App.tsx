@@ -7,6 +7,7 @@ import {
 import { View } from "./component/View";
 import * as THREE from "three/webgpu";
 import type { WebGPURendererParameters } from "three/src/renderers/webgpu/WebGPURenderer.Nodes.js";
+import { useRef, useState } from "react";
 
 extend(THREE as unknown as ConstructorRepresentation);
 
@@ -16,17 +17,16 @@ declare module "@react-three/fiber" {
 }
 
 function App() {
+  const container = useRef<HTMLDivElement>(null!);
   return (
-    <>
+    <div ref={container}>
       <View className="w-40 h-40 border-2 border-red-500">
-        <pointLight intensity={2} position={[0, 0, 4]} />
-        <mesh rotation={[Math.PI / 4, Math.PI / 3, 0]} scale={2}>
-          <boxGeometry />
-          <meshStandardMaterial />
-        </mesh>
+        <pointLight intensity={4} position={[0, 0, 4]} />
+        <HoverBox />
       </View>
       <div className="top-0 left-0 right-0 bottom-0 fixed">
         <Canvas
+          eventSource={container}
           gl={async (props) => {
             const renderer = new THREE.WebGPURenderer(
               props as WebGPURendererParameters,
@@ -38,7 +38,22 @@ function App() {
           <View.Port />
         </Canvas>
       </div>
-    </>
+    </div>
+  );
+}
+
+function HoverBox() {
+  const [hover, setHover] = useState(false);
+  return (
+    <mesh
+      rotation={[Math.PI / 4, Math.PI / 3, 0]}
+      scale={2}
+      onPointerEnter={() => setHover(true)}
+      onPointerLeave={() => setHover(false)}
+    >
+      <boxGeometry />
+      <meshStandardMaterial color={hover ? "red" : "blue"} />
+    </mesh>
   );
 }
 
