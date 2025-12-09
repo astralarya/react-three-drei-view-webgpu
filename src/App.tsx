@@ -4,6 +4,7 @@ import {
   type ConstructorRepresentation,
   type ThreeToJSXElements,
 } from "@react-three/fiber";
+// import { View } from "@react-three/drei";
 import { View } from "./component/View";
 import * as THREE from "three/webgpu";
 import type { WebGPURendererParameters } from "three/src/renderers/webgpu/WebGPURenderer.Nodes.js";
@@ -24,7 +25,7 @@ function App() {
         <pointLight intensity={4} position={[0, 0, 4]} />
         <HoverBox />
       </View>
-      <div className="top-0 left-0 right-0 bottom-0 fixed">
+      <div className="top-0 left-0 right-0 bottom-0 fixed pointer-events-none">
         <Canvas
           eventSource={container}
           gl={async (props) => {
